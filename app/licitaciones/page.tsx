@@ -4,25 +4,13 @@ import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import React, { useEffect, useState } from "react";
 
-type MercadoPublico = {
-  CodigoExterno: string;
-  Nombre: string;
-  Estado: number;
-  FechaCierre: string;
-};
-
 const DemoPage = () => {
-  const [data, setData] = useState<MercadoPublico[]>([]); // Inicializamos como arreglo vacío
+  const [data, setData] = useState<Licitacion[]>([]); // Inicializamos como arreglo vacío
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<unknown>(null);
-  const [selected, setSelected] = useState<MercadoPublico | null>(null);
+  const [selected, setSelected] = useState<Licitacion | null>(null);
   const [filter, setFilter] = useState<string>(""); // Aseguramos que sea siempre una cadena
   const url = process.env.NEXT_PUBLIC_API_URL;
-
-  // Filtro de elementos
-  const filteredItems = data.filter((item: MercadoPublico) =>
-    item.Nombre.toLowerCase().includes(filter.toLowerCase())
-  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -69,25 +57,19 @@ const DemoPage = () => {
           </Skeleton>
         ) : (
           <div className="flex-1 p-4 space-y-2 overflow-y-auto">
-            {filteredItems.length > 0 ? (
-              filteredItems.map((item: MercadoPublico) => (
-                <div
-                  key={item.CodigoExterno}
-                  onClick={() => setSelected(item)}
-                  className={`p-2 cursor-pointer rounded-md ${
-                    selected?.CodigoExterno === item.CodigoExterno
-                      ? "bg-gray-200 dark:bg-gray-700"
-                      : "hover:bg-gray-100 dark:hover:bg-gray-900"
-                  }`}
-                >
-                  {item.Nombre}
-                </div>
-              ))
-            ) : (
-              <div className="text-center text-gray-500">
-                No se encontraron resultados.
+            {data.map((item) => (
+              <div
+                key={item.CodigoExterno}
+                onClick={() => setSelected(item)}
+                className={`p-2 cursor-pointer rounded-md ${
+                  selected?.CodigoExterno === item.CodigoExterno
+                    ? "bg-gray-200 dark:bg-gray-700"
+                    : "hover:bg-gray-100 dark:hover:bg-gray-900"
+                }`}
+              >
+                {item.Nombre}
               </div>
-            )}
+            ))}
           </div>
         )}
       </div>

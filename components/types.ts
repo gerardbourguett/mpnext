@@ -98,6 +98,7 @@ interface Licitacion {
   Items: Items;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface ResponseData {
   Cantidad: number;
   FechaCreacion: string;

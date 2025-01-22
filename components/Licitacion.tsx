@@ -7,7 +7,7 @@ import { Copy } from "lucide-react";
 import { Button } from "./ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { ToastAction } from "./ui/toast";
-import { Spinner } from "./ui/spinner"; // Importar el componente Spinner
+import { Grid } from "react-loader-spinner";
 
 interface Comprador {
   CodigoOrganismo: string;
@@ -108,13 +108,6 @@ interface Licitacion {
   Items: Items;
 }
 
-interface ResponseData {
-  Cantidad: number;
-  FechaCreacion: string;
-  Version: string;
-  Listado: Licitacion[];
-}
-
 interface Props {
   selected: Licitacion | null;
 }
@@ -163,8 +156,17 @@ const Licitacion = ({ selected }: Props) => {
 
   if (loading) {
     return (
-      <div className="dark:text-white text-black text-center">
-        Cargando detalles...
+      <div className="flex h-full items-center justify-center">
+        <Grid
+          visible={true}
+          height="120"
+          width="120"
+          color="#3B82F6"
+          ariaLabel="grid-loading"
+          radius="12.5"
+          wrapperStyle={{}}
+          wrapperClass="grid-wrapper"
+        />
       </div>
     );
   }
